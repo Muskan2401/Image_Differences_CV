@@ -1,3 +1,4 @@
-lescikit-image
+streamlit
+scikit-image
 imutils
 opencv-python-headless
