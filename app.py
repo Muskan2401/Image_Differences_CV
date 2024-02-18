@@ -14,6 +14,9 @@ def image_comparison(img1, img2):
     gray_orig = cv2.resize(gray_orig, common_size)
     gray_mod = cv2.resize(gray_mod, common_size)
 
+    img1 = cv2.resize(img1, common_size)
+    img2 = cv2.resize(img2, common_size)
+
     # Compute structural similarity
     (score, diff) = structural_similarity(gray_orig, gray_mod, full=True)
     diff = (diff * 255).astype("uint8")
@@ -34,11 +37,6 @@ def image_comparison(img1, img2):
             (x, y, w, h) = cv2.boundingRect(c)
             cv2.rectangle(img1, (x, y), (x + w, y + h), (0, 0, 255), 2)
             cv2.rectangle(img2, (x, y), (x + w, y + h), (0, 0, 255), 2)
-
-
-    # Resize images to have the same number of rows
-    img1 = cv2.resize(img1, common_size)
-    img2 = cv2.resize(img2, common_size)
 
     # Save images and show the final frame
     if score < 1:
