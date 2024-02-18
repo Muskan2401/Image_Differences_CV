@@ -18,19 +18,23 @@ def image_comparison(img1, img2):
     (score, diff) = structural_similarity(gray_orig, gray_mod, full=True)
     diff = (diff * 255).astype("uint8")
 
-    # Apply thresholding
-    threshold_value = 40
-    thresh = cv2.threshold(diff, threshold_value, 40, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-
+    thresh = cv2.threshold(diff, 60, 255, cv2.THRESH_BINARY_INV)[1]
+    
     # Find contours
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
-
-    # Draw bounding boxes on original and modified images
+    
+    # Set a minimum contour area to filter out small differences
+    min_contour_area = 500
+    
+    # Draw bounding boxes on first and second images, filtering small contours
     for c in cnts:
-        (x, y, w, h) = cv2.boundingRect(c)
-        cv2.rectangle(img1, (x, y), (x + w, y + h), (0, 0, 255), 2)
-        cv2.rectangle(img2, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        contour_area = cv2.contourArea(c)
+        if contour_area > min_contour_area:
+            (x, y, w, h) = cv2.boundingRect(c)
+            cv2.rectangle(img1, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            cv2.rectangle(img2, (x, y), (x + w, y + h), (0, 0, 255), 2)
+
 
     # Resize images to have the same number of rows
     img1 = cv2.resize(img1, common_size)
