@@ -19,7 +19,7 @@ def image_comparison(img1, img2):
     diff = (diff * 255).astype("uint8")
 
     # Apply thresholding
-    threshold_value = 40
+    threshold_value = 10
     thresh = cv2.threshold(diff, threshold_value, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 
     # Find contours
