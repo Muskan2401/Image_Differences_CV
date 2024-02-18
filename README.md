@@ -1,5 +1,5 @@
 # **Image Comparison using CV**
-**Goal**->To develop a model or use traditional computer vision techniques which to detect the difference between two images and draw bounding boxes around the detected differences.
+**Goal**->To develop a model or use traditional computer vision techniques to detect the difference between two images and draw bounding boxes around the detected differences.
 
 **Objective:**
 
