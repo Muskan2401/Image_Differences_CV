@@ -12,14 +12,14 @@ def image_comparison(img1, img2):
     # Resize images to a common size
     common_size = (min(gray_orig.shape[1], gray_mod.shape[1]), min(gray_orig.shape[0], gray_mod.shape[0]))
     gray_orig = cv2.resize(gray_orig, common_size)
-    gray_mod = cv2.resize(gray_mod, common_size
+    gray_mod = cv2.resize(gray_mod, common_size)
 
     # Compute structural similarity
     (score, diff) = structural_similarity(gray_orig, gray_mod, full=True)
     diff = (diff * 255).astype("uint8")
 
     # Apply thresholding
-    threshold_value = 10
+    threshold_value = 1
     thresh = cv2.threshold(diff, threshold_value, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 
     # Find contours
